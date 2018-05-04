@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/register.css">
+    <script type="text/javascript" src="resources/jquery/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="resources/sha256.js"></script>
+    <script type="text/javascript" src="javascript/login.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="flex-grow-1">
+        <a class="navbar-brand" href="index.html">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+    <div id="gradient"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <form>
+            <fieldset>
+              <div class="alert alert-danger fade show" id="errorAlert" role="alert">
+                The fields are incorrect.
+              </div>
+              <!-- Form Name -->
+              <legend>Log In</legend>
+              <!-- Text input http://getbootstrap.com/css/#forms -->
+              <div class="form-group">
+                <label for="email" class="control-label">Email</label>
+                <input type="email" class="form-control" id="email" required="">
+                <small class="form-text" style="color: red" id="emailError">This field is invalid</small>
+              </div>
+              <!-- Text input http://getbootstrap.com/css/#forms -->
+              <div class="form-group">
+                <label for="password" class="control-label">Password</label>
+                <input type="password" class="form-control" id="password">
+                <small class="form-text" style="color: red" id="passwordError">This field is invalid</small>
+              </div>
+              <!-- Button http://getbootstrap.com/css/#buttons -->
+              <div class="form-group">
+                <label class="control-label" for="register"></label>
+                <div class="text-center">
+                  <button type="button" id="register" name="login" class="btn btn-primary" onclick="loginUser()">Log In</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

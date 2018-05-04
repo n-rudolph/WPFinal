@@ -1,0 +1,35 @@
+legend{
+  text-align: center;
+}
+.row{
+  margin-top: 20px;
+}
+form{
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 20px 0px grey;
+}
+
+#register{
+  width: 100px;
+  height: 50px;
+  font-weight: bold;
+}
+
+body{
+  background: url("../resources/images/background-1.jpg") no-repeat center center;
+	background-size: cover;
+}
+
+#gradient:before {
+    content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-image: linear-gradient(to bottom right,#002f4b,#dc4225);
+	opacity: .6;
+	z-index: -10000;
+  }
