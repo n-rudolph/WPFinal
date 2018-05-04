@@ -27,7 +27,6 @@ setInterval(function() {
   $.get('php/getActiveUsers.php', {}, function(data) {
     var split = data.split(",");
     if (split[0]=="200"){
-      console.log('pp');
       $("#activeUsers").html(split[1]);
     }else{
       $("#activeUsers").html("0");

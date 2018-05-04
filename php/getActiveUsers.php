@@ -1,20 +1,18 @@
 <?php
-  function closeDbConnection() {
-    global $mysqli;
-    $mysqli -> close();
-  }
-  $mysqli = new mysqli("localhost", "root", "", "finalprojectdb");
-  if ($mysqli -> connect_error) {
-    echo "100,Db connection error".mysqli_connect_error();
+
+include 'db.php';
+
+if (!checkConnection()) {
+    echo "Db connection error: \n" . getError();
     exit();
-  }
+} else {
+    $answer = query("SELECT * FROM connectedusers WHERE id = 1;");
+    $getRowAssoc = mysqli_fetch_assoc($answer);
+    $amount = $getRowAssoc["amount"];
 
-  $answer = $mysqli -> query("SELECT * FROM connectedusers WHERE id = 1;");
-  $getRowAssoc = mysqli_fetch_assoc($answer);
-  $amount = $getRowAssoc["amount"];
-
-  $answer->close();
-  closeDbConnection();
-  echo "200,$amount";
-  exit();
- ?>
+    $answer->close();
+    closeConnection();
+    echo "200, $amount";
+    exit();
+}
+?>

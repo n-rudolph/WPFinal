@@ -1,32 +1,32 @@
 <?php
-  function closeDbConnection() {
-    global $mysqli;
-    $mysqli -> close();
-  }
+include 'db.php';
+include 'sendEmail.php';
 
-  if (isset($_POST["name"]) && isset($_POST["lastname"]) && isset($_POST["email"]) && isset($_POST["password"])) {
-    $mysqli = new mysqli("localhost", "root", "", "finalprojectdb");
-    if ($mysqli -> connect_error) {
-      echo "Db connection error".mysqli_connect_error();
-      exit();
+
+if (isset($_POST["name"]) && isset($_POST["lastname"]) && isset($_POST["email"]) && isset($_POST["password"])) {
+    if (!checkConnection()) {
+        echo "Db connection error: \n" . getError();
+        exit();
+    } else {
+        $name = $_POST["name"];
+        $lastname = $_POST["lastname"];
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $id = 0;
+
+        $answer = query("SELECT max(id) as maximum FROM user;");
+        while ($ansObj = $answer->fetch_object()) {
+            $id = $ansObj->maximum;
+            $id++;
+        }
+        $answer->close();
+
+        $result = query("INSERT INTO user (id, name, lastname, email, password) VALUE ('$id', '$name', '$lastname', '$email', '$password');");
+        closeConnection();
+        $to = welcomeMail($email);
+        echo "success: sent mail \n" . $to;
+
     }
-    $name = $_POST["name"];
-    $lastname = $_POST["lastname"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $id = 0;
-
-    $answer = $mysqli -> query("SELECT max(id) as maximum FROM user;");
-    while ($ansObj = $answer ->fetch_object()){
-      $id = $ansObj->maximum;
-      $id++;
-    }
-    $answer->close();
-
-    $result = $mysqli->query("INSERT INTO user (id, name, lastname, email, password) VALUE ('$id', '$name', '$lastname', '$email', '$password');");
-    closeDbConnection();
-    echo "success";
-  } else {
+} else {
     echo "invalid data";
-  }
- ?>
+}
