@@ -2,9 +2,11 @@ $(document).ready(function () {
     $('#emailError').hide();
     $('#passwordError').hide();
     $('#errorAlert').hide();
-    $.get("php/sendEmail.php", {}, function (daten) {
-        console.log(daten);
-    });
+    // $.get("php/sendEmail.php", {}, function (daten) {
+    //     console.log(daten);
+    // });
+    if (sessionStorage.id) window.location.href = "index.html"
+
 });
 
 function loginUser() {
