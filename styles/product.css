@@ -1,0 +1,8 @@
+.product-card{
+    height: 400px;
+}
+
+.product-img{
+    object-fit: contain;
+    height: 300px;
+}

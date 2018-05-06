@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  $("#cart-empty").hide();
   if (!sessionStorage.id){
     window.location.href = 'index.html';
   }
@@ -8,11 +9,13 @@ $(document).ready(function(){
 function getUserCart() {
   var id = sessionStorage.id;
   $.get('php/getCart.php', {userid: id}, function(response) {
-    var split = response.split(",");
-    if (split[0] == "200") {
-
+    var result = JSON.parse(response);
+    if (result.length == 0){
+      $("#cart-table").hide();
+      $("#cart-empty").show();
     } else {
-      // error
+      for(var i = 0; i<result.length; i ++) {
+      }
     }
   });
 }
