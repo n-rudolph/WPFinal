@@ -9,6 +9,7 @@
     <script type="text/javascript" src="resources/jquery/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="javascript/navbar.js"></script>
+    <script type="text/javascript" src="javascript/cart.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -37,6 +38,9 @@
     </nav>
     <div class="container">
       <h2>Shopping cart</h2>
+      <div class="row" id="cart-empty">
+        <h3>The shopping cart is empty</h3>
+      </div>
       <table id="cart-table" class="table">
         <thead>
           <tr>
@@ -47,27 +51,7 @@
           </tr>
         </thead>
         <tbody id="table-body">
-          <tr>
-            <th>
-              <img src="http://via.placeholder.com/300" alt="product">
-            </th>
-            <th>
-              <h4>Nombre del producto</h4>
-              <p>Descripcion de este producto tan bello</p>
-              <a href="#">Remove from cart</a>
-            </th>
-            <th>
-              <h4>24,5</h4>
-            </th>
-            <th>
-              <select class="custom-select">
-                <option selected>Quantity</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-            </th>
-          </tr>
+          <!-- Here goes the generated cart -->
         </tbody>
       </table>
     </div>
