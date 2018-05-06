@@ -1,0 +1,65 @@
+<?php
+include 'php/db.php';
+$id = $_GET['id'];
+$product = array("name" => "", "price" => 0);
+if ($id && isConnected()) {
+    $query = query("select * from product where id=$id;");
+    $product = $query->fetch_array();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?php
+        echo (string)$product['name'];
+        ?></title>
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <script type="text/javascript" src="resources/jquery/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascript/navbar.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="flex-grow-1">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+        <button type="button" class="btn btn-primary">
+            Active users <span class="badge badge-light" id=activeUsers></span>
+        </button>
+        <!-- <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item doesntNeedLogin">
+                <a href="login.html" class="nav-link">Log In</a>
+            </li>
+            <li class="nav-item doesntNeedLogin">
+                <a href="register.html" class="nav-link">Sign Up</a>
+            </li>
+            <li class="nav-item needsLogin">
+                <a onclick="logout()" class="nav-link">Log Out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <?php
+    echo "<h1>" . (string)$product['name'] . "</h1>";
+    echo "<div><img src='./resources/images/products/{$product['image']}' alt='image'></div>";
+    echo "<h4>{$product['description']}</h4>";
+    echo "<h4>{$product['price']} €</h4>";
+    ?>
+    <button class="btn btn-success">Add to cart</button>
+</div>
+
+</body>
+</html>
