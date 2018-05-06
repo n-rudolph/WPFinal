@@ -1,14 +1,22 @@
 <?php
-function closeDbConnection() {
-  global $mysqli;
-  $mysqli -> close();
+include 'db.php';
+
+if (isConnected()){
+    $update = query("UPDATE connectedusers SET amount = amount - 1 WHERE id = 1");
+    if ($update != false){
+        $response['status'] = 200;
+        $response['msg'] = "Successful log out.";
+        echo json_encode($response);
+    }else{
+        $response['status'] = 500;
+        $response['msg'] = "Error at logging out. Try again.";
+        $response['error'] = "" . getError();
+        echo json_encode($response);
+    }
+}else{
+    $response['status'] = 500;
+    $response['msg'] = "Database is not connected.";
+    $response['error'] = "" . getError();
+    echo json_encode($response);
 }
-$mysqli = new mysqli("localhost", "root", "", "finalprojectdb");
-if ($mysqli -> connect_error) {
-  echo "100,Db connection error".mysqli_connect_error();
-  exit();
-}
-$result = $mysqli->query("UPDATE connectedusers SET amount = amount - 1 WHERE id = 1");
-closeDbConnection();
-echo "200";
- ?>
+closeConnection();

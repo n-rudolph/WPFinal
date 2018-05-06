@@ -21,7 +21,7 @@ function registerUser() {
                     error.html(response.msg);
                     error.show();
                 } else {
-                    window.location.href = 'index.html';
+                    window.location.href = 'login.html';
                 }
             });
     }

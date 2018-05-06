@@ -2,13 +2,13 @@
 $db = new mysqli("localhost:3306", "root", "", "finalprojectdb");
 
 
-function checkConnection()
+function isConnected()
 {
-    global $db;
-    if (!$db) {
-        return false;
-    }else{
+    $error = getError();
+    if ($error == NULL){
         return true;
+    }else{
+        return false;
     }
 }
 

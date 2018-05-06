@@ -1,59 +1,61 @@
-$( document ).ready(function() {
-  $('#emailError').hide();
-  $('#passwordError').hide();
-  $('#errorAlert').hide();
-  $.get("php/sendEmail.php", {}, function(daten) {
-    console.log(daten);
-  });
+$(document).ready(function () {
+    $('#emailError').hide();
+    $('#passwordError').hide();
+    $('#errorAlert').hide();
+    $.get("php/sendEmail.php", {}, function (daten) {
+        console.log(daten);
+    });
 });
 
 function loginUser() {
-  resetErrors();
-  if (checkLoginForm()) {
-    if (sessionStorage.id){
-      $.get("php/logout.php", {}, function(daten) {
-          performLogin();
-      });
-    } else {
-      performLogin();
+    resetErrors();
+    if (checkLoginForm()) {
+        if (sessionStorage.id) {
+            $.get("php/logout.php", {}, function (daten) {
+                performLogin();
+            });
+        } else {
+            performLogin();
+        }
     }
-  }
 }
 
 function performLogin() {
-  $.post("php/login.php",
-  {
-    email: $("#email").val(),
-    password: sha256($("#password").val())
-  }, function(result) {
-    var split = result.split(",");
-    if (split[0] == "200") {
-      sessionStorage.id=split[1];
-      sessionStorage.name=split[2];
-      sessionStorage.email=split[3];
-      window.location.href = 'index.html';
-    } else {
-      $('#errorAlert').show();
-    }
-  });
+    $.post("php/login.php",
+        {
+            email: $("#email").val(),
+            password: sha256($("#password").val())
+        }, function (result) {
+            var response = JSON.parse(result);
+            if (response.status !== 200) {
+                var error = $('#errorAlert');
+                error.html(response.msg);
+                error.show();
+            } else {
+                sessionStorage.id = response.user.id;
+                sessionStorage.name = response.user.name;
+                sessionStorage.email = response.user.email;
+                window.location.href = 'index.html';
+            }
+        });
 }
 
 function checkLoginForm() {
-  var email = $('#email').val();
-  var password = $('#password').val();
+    var email = $('#email').val();
+    var password = $('#password').val();
 
-  var errors = 0;
-  if (email == undefined || email.length == 0 || !validateEmail(email)) {
-    errors++;
-    $('#email').addClass('is-invalid');
-    $('#emailError').show();
-  }
-  if (password == undefined || password.length < 6) {
-    errors++;
-    $('#password').addClass('is-invalid');
-    $('#passwordError').show();
-  }
-  return errors == 0;
+    var errors = 0;
+    if (email == undefined || email.length == 0 || !validateEmail(email)) {
+        errors++;
+        $('#email').addClass('is-invalid');
+        $('#emailError').show();
+    }
+    if (password == undefined || password.length < 6) {
+        errors++;
+        $('#password').addClass('is-invalid');
+        $('#passwordError').show();
+    }
+    return errors == 0;
 }
 
 function validateEmail(email) {
@@ -62,9 +64,9 @@ function validateEmail(email) {
 }
 
 function resetErrors() {
-  $('#email').removeClass('is-invalid');
-  $('#emailError').hide();
-  $('#password').removeClass('is-invalid');
-  $('#passwordError').hide();
-  $('#errorAlert').hide();
+    $('#email').removeClass('is-invalid');
+    $('#emailError').hide();
+    $('#password').removeClass('is-invalid');
+    $('#passwordError').hide();
+    $('#errorAlert').hide();
 }

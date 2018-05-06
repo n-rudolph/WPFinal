@@ -2,7 +2,7 @@
 
 include 'db.php';
 
-if (!checkConnection()) {
+if (!isConnected()) {
     echo "Db connection error: \n" . getError();
     exit();
 } else {

@@ -4,7 +4,7 @@ include 'sendEmail.php';
 
 $response = array('status' => 0, 'msg' => "");
 if (isset($_POST["name"]) && isset($_POST["lastname"]) && isset($_POST["email"]) && isset($_POST["password"])) {
-    if (!checkConnection()) {
+    if (!isConnected()) {
         $response['status'] = 500;
         $response['msg'] = "Server error occurred. Please try again";
         $response['error'] = "" . getError();
