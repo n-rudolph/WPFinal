@@ -2,9 +2,6 @@ $(document).ready(function () {
     $('#emailError').hide();
     $('#passwordError').hide();
     $('#errorAlert').hide();
-    $.get("php/sendEmail.php", {}, function (daten) {
-        console.log(daten);
-    });
 });
 
 function loginUser() {
