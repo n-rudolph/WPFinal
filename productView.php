@@ -1,21 +1,30 @@
+<?php
+include 'php/db.php';
+$id = $_GET['id'];
+$product = array("name" => "", "price" => 0);
+if ($id && isConnected()) {
+    $query = query("select * from product where id=$id;");
+    $product = $query->fetch_array();
+}
+?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Rudygol</title>
+    <meta charset="UTF-8">
+    <title><?php
+        echo (string)$product['name'];
+        ?></title>
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/navbar.css">
-    <link rel="stylesheet" href="styles/product.css">
-    <link rel="icon" href="https://cdn1.iconfinder.com/data/icons/education-flat-2/48/59-512.png">
     <script type="text/javascript" src="resources/jquery/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="javascript/navbar.js"></script>
-    <script type="text/javascript" src="javascript/products.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="flex-grow-1">
-        <a class="navbar-brand" href="#">Rudygol</a>
+        <a class="navbar-brand" href="index.html">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -39,19 +48,18 @@
             <li class="nav-item needsLogin">
                 <a onclick="logout()" class="nav-link">Log Out</a>
             </li>
-            <li class="nav-item needsLogin">
-                <a href="cart.html" class="nav-link">Cart</a>
-            </li>
-            <li class="nav-item needsLogin">
-                <a href="orders.html" class="nav-link">My orders</a>
-            </li>
         </ul>
     </div>
 </nav>
 <div class="container">
-    <div class="row">
-        <!--Here would be listed the products-->
-    </div>
+    <?php
+    echo "<h1>" . (string)$product['name'] . "</h1>";
+    echo "<div><img src='./resources/images/products/{$product['image']}' alt='image'></div>";
+    echo "<h4>{$product['description']}</h4>";
+    echo "<h4>{$product['price']} €</h4>";
+    ?>
+    <button class="btn btn-success">Add to cart</button>
 </div>
+
 </body>
 </html>
