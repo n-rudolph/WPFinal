@@ -17,7 +17,7 @@ if ($id && isConnected()) {
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/navbar.css">
     <script type="text/javascript" src="resources/jquery/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="resources/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="javascript/navbar.js"></script>
     <script type="text/javascript" src="javascript/product.js"></script>
 
@@ -55,7 +55,17 @@ if ($id && isConnected()) {
     echo "<h4>{$product['description']}</h4>";
     echo "<h4>{$product['price']} €</h4>";
     ?>
-    <button class="btn btn-success" onclick="addToCart(<?php echo $id ?>)">Add to cart</button>
+    <button class="btn btn-success" id="add-cart" data-toggle="tooltip" data-placement="bottom"
+            title="Log in to use the cart" onclick="addToCart(<?php echo $id ?>)">Add to cart</button>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            if (!sessionStorage.id){
+                var add_btn = $('#add-cart');
+                add_btn.prop("disabled", true);
+                $('[data-toggle="tooltip"]').tooltip({placement: 'bottom',trigger: 'manual'}).tooltip('show');
+            }
+        });
+    </script>
 </div>
 
 </body>
