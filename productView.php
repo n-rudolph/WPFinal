@@ -19,6 +19,7 @@ if ($id && isConnected()) {
     <script type="text/javascript" src="resources/jquery/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="javascript/navbar.js"></script>
+    <script type="text/javascript" src="javascript/product.js"></script>
 
 </head>
 <body>
@@ -34,10 +35,6 @@ if ($id && isConnected()) {
         <button type="button" class="btn btn-primary">
             Active users <span class="badge badge-light" id=activeUsers></span>
         </button>
-        <!-- <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item doesntNeedLogin">
                 <a href="login.html" class="nav-link">Log In</a>
@@ -58,7 +55,7 @@ if ($id && isConnected()) {
     echo "<h4>{$product['description']}</h4>";
     echo "<h4>{$product['price']} €</h4>";
     ?>
-    <button class="btn btn-success">Add to cart</button>
+    <button class="btn btn-success" onclick="addToCart(<?php echo $id ?>)">Add to cart</button>
 </div>
 
 </body>

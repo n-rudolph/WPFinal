@@ -16,14 +16,3 @@ $( document ).ready(function() {
         })
     });
 });
-
-function addToCart() {
-  if (sessionStorage.id) {
-    $.post("php/addToCart.php", {
-      userid: sessionStorage.id,
-      productid: prodid
-    }, function (result){
-      console.log("pepe");
-    });
-  }
-}

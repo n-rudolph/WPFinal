@@ -33,7 +33,7 @@ function getUserCart() {
           " </th>\n"+
           " <th>\n"+
           "   <select class=\"custom-select\" id=\"product"+k+"\">\n"+
-          "     <option selected>Quantity</option>\n"+
+          "     <option value=\"0\" selected>0</option>\n"+
           "     <option value=\"1\">1</option>\n"+
           "     <option value=\"2\">2</option>\n"+
           "     <option value=\"3\">3</option>\n"+

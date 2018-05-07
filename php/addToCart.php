@@ -2,7 +2,7 @@
 include 'db.php';
 
 $response = array('status' => 0, 'msg' => "");
-if (isset($_POST["name"]) && isset($_POST["lastname"]) && isset($_POST["email"]) && isset($_POST["password"])) {
+if (isset($_POST["userid"]) && isset($_POST["productid"])) {
     if (!isConnected()) {
         $response['status'] = 500;
         $response['msg'] = "Server error occurred. Please try again";
@@ -31,7 +31,6 @@ if (isset($_POST["name"]) && isset($_POST["lastname"]) && isset($_POST["email"])
 
             $result = query("INSERT INTO cart (id, userid, productid) VALUE ('$id', '$userid', '$productid');");
             closeConnection();
-            $to = welcomeMail($email);
             $response['status'] = 200;
             $response['msg'] = "Product added to user cart";
             echo json_encode($response);
