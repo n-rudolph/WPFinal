@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('#lastnameError').hide();
     $('#emailError').hide();
     $('#passwordError').hide();
+    if (sessionStorage.id) window.location.href = "index.html";
 });
 
 function registerUser() {
