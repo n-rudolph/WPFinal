@@ -7,18 +7,21 @@ $(document).ready(function(){
 });
 
 var productids = [];
+var products = [];
+var amounts = [];
+var total = 0;
 
 function getUserCart() {
   var userid = sessionStorage.id;
   $.post('php/getCart.php', {
     id: userid
   }, function(response) {
-    var result = JSON.parse(response);
-    if (result.length == 0){
+    products = JSON.parse(response);
+    if (products.length == 0){
       $("#cart-table").hide();
       $("#cart-empty").show();
     } else {
-      $.each(result, function (k, product) {
+      $.each(products, function (k, product) {
         productids.push(product.id);
         var cart_html = "<tr id=\"product"+product.id+"\">\n"+
           " <th>\n"+
@@ -28,13 +31,13 @@ function getUserCart() {
           "   <h4>"+product.name+"</h4>\n"+
           "   <p>"+product.description+"</p>\n"+
           "   <a class=\"removeFromCart\" onclick=\"remove("+product.id+")\">Remove from cart</a>\n</th>\n"+
+          " </th>\n" +
           " <th>\n"+
-          "   <h4>"+product.price+"</h4>\n"+
+          "   <h4>$"+product.price+"</h4>\n"+
           " </th>\n"+
           " <th>\n"+
-          "   <select class=\"custom-select\" id=\"product"+k+"\">\n"+
-          "     <option value=\"0\" selected>0</option>\n"+
-          "     <option value=\"1\">1</option>\n"+
+          "   <select class=\"custom-select\" id=\"product"+product.id+"\">\n"+
+          "     <option value=\"1\" selected>1</option>\n"+
           "     <option value=\"2\">2</option>\n"+
           "     <option value=\"3\">3</option>\n"+
           "   </select>\n"+
@@ -56,6 +59,7 @@ function remove(id) {
       $("#product"+id).remove();
       var index  = productids.indexOf(id);
       productids.splice(index, 1);
+      products.splice(index, 1);
       if (productids.length == 0) {
         $("#cart-table").hide();
         $("#cart-empty").show();
@@ -64,4 +68,46 @@ function remove(id) {
       // error
     }
   });
+}
+
+function fillPurchaseOrder() {
+  $(".purchaseDeletable").remove();
+  fillProductsAmount();
+  calculateTotal();
+  $.each(products, function (k, product) {
+    var purchase_html = "<tr clase=\"purchaseDeletable\" id=\"product"+product.id+"\">\n"+
+      " <th>\n"+
+      "   <img class=\"purchase-img\" src=\"./resources/images/products/"+product.image+"\" alt=\"product\">\n"+
+      " </th>\n" +
+      " <th>\n"+
+      "   <p>"+product.name+"</p>\n"+
+      " </th>\n" +
+      " <th>\n"+
+      "   <p>$"+product.price+"</p>\n"+
+      " </th>\n"+
+      " <th>\n"+
+      "   <p>"+amounts[k]+"</p>\n"+
+      " </th>\n"+
+      "</tr>";
+    $("#purchase-table-body").prepend(purchase_html);
+  });
+}
+
+function fillProductsAmount() {
+  amounts = [];
+  $.each(products, function (k, product) {
+    var productSelectValue = $("#product"+product.id).val();
+    amounts.push(productSelectValue == "" ? 1 : productSelectValue);
+  });
+}
+
+function calculateTotal() {
+  total = 0;
+  $.each(products, function (k, product) {
+    total += product.price * amounts[k];
+  });
+  if ($("#deliveryField input[type='radio']:checked").val() == "1"){
+    total += 5;
+  }
+  $("#totalAmount").text(total);
 }

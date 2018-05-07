@@ -3,6 +3,11 @@ img{
   width: 100px;
 }
 
+.purchase-img{
+  height: 100px;
+  width: 100px;
+}
+
 .removeFromCart:hover{
   color: red!important;
   cursor: pointer;
