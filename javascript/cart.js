@@ -20,6 +20,7 @@ function getUserCart() {
         if (products.length == 0) {
             $("#cart-table").hide();
             $("#cart-empty").show();
+            $("#checkout-btn").hide();
         } else {
             $.each(products, function (k, product) {
                 productids.push(product.id);
@@ -30,7 +31,7 @@ function getUserCart() {
                     " <th style='width: 50vw'>\n" +
                     "   <h4>" + product.name + "</h4>\n" +
                     "   <p style='font-weight: normal'>" + product.description + "</p>\n" +
-                    "   <a class=\"removeFromCart\" onclick=\"remove(" + product.id + ")\">Remove from cart</a>\n</th>\n" +
+                    "   </th>\n" +
                     " </th>\n" +
                     " <th>\n" +
                     "   <p>" + product.price + " €</p>\n" +
@@ -42,6 +43,7 @@ function getUserCart() {
                     "     <option value=\"3\">3</option>\n" +
                     "   </select>\n" +
                     " </th>\n" +
+                    "<th><i class=\"far fa-trash-alt fa-2x removeFromCart\" onclick='remove("+ product.id +")'></i></th>" +
                     "</tr>";
                 $("#table-body").append(cart_html);
             });
@@ -63,6 +65,7 @@ function remove(id) {
             if (productids.length == 0) {
                 $("#cart-table").hide();
                 $("#cart-empty").show();
+                $("#checkout-btn").hide();
             }
         } else {
             // error

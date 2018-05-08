@@ -50,6 +50,5 @@ function orderMail($to, $message)
         'X-Mailer: PHP/' . phpversion();
 
     mail($to, $subject, $message, $headers);
-    echo "reached here";
     return true;
 }

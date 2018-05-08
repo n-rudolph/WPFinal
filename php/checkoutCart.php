@@ -16,20 +16,20 @@ if (isset($_POST["id"]) && isset($_POST["cart"]) && isset($_POST["date"])) {
         $cart = $_POST["cart"];
         $date = $_POST["date"];
 
-//        $q = query("INSERT INTO user_order (id, userid, date) VALUE (null,'$userid', '$date');");
+        $q = query("INSERT INTO user_order (id, userid, date) VALUE (null,'$userid', '$date');");
         $q = true;
         if ($q != false) {
             $lastId = lastId();
-//            foreach ($cart as &$product) {
-//                query("INSERT INTO order_product (orderid, productid, quantity) VALUE ($lastId, " . $product["productid"] . ", " . $product["quantity"] . ");");
-//            }
+            foreach ($cart as &$product) {
+                query("INSERT INTO order_product (orderid, productid, quantity) VALUE ($lastId, " . $product["productid"] . ", " . $product["quantity"] . ");");
+            }
+            query("delete from cart where (userid = '$userid');");
             sendEmail($cart);
             if (true) {
-                echo $_POST["email"];
-//                $response['status'] = 200;
-//                $response['msg'] = "Order saved successfully";
-//                $response['lastId'] = $lastId;
-//                echo json_encode($response);
+                $response['status'] = 200;
+                $response['msg'] = "Order saved successfully";
+                $response['lastId'] = $lastId;
+                echo json_encode($response);
             }else {
                 $response['status'] = 500;
                 $response['msg'] = "Error sending mail";
