@@ -1,0 +1,71 @@
+#navbarSupportedContent {
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.flex-grow-1 {
+    flex-grow: 2 !important;
+}
+
+body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
+}
+
+.background{
+    z-index: -999;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100vw;
+    background: url(./../resources/images/background.jpg) no-repeat;
+    background-size: cover;
+    left: 0;
+}
+
+.product-view-img {
+    height: 300px;
+    width: 300px;
+    object-fit: contain;
+}
+
+.rudy-alert {
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-animation-name: toast;
+    -moz-animation-name: toast;
+    -o-animation-name: toast;
+    animation-name: toast;
+    animation-duration: 1s;
+}
+
+@keyframes toast {
+    from {
+        bottom: -10%;
+    }
+    to {
+        bottom: 5%;
+    }
+}
+
+.go-down{
+    bottom: 10%;
+    -webkit-animation-name: toast-out;
+    -moz-animation-name: toast-out;
+    -o-animation-name: toast-out;
+    animation-name: toast-out;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 1s;
+}
+
+@keyframes toast-out {
+    from {
+        bottom: 5%;
+    }
+    to {
+        bottom: -10%;
+    }
+}

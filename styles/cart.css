@@ -12,3 +12,8 @@ img{
   color: red!important;
   cursor: pointer;
 }
+
+.container{
+  background: #ffff;
+  margin-top: 10px;
+}

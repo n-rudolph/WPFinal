@@ -41,3 +41,15 @@ function welcomeMail($to)
 
     return mail($to, $subject, $message, $headers);
 }
+
+function orderMail($to, $message)
+{
+    $subject = 'Order confirmed';
+    $headers = 'From: best@myapp.com' . "\r\n" .
+        'Reply-To: best@myapp.com' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+    mail($to, $subject, $message, $headers);
+    echo "reached here";
+    return true;
+}

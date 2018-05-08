@@ -10,6 +10,7 @@ function fillOrders(orders) {
     $.each(orders, function (k, order) {
         $.get('php/getOrderProducts.php?orderid=' + order.id, function (response) {
             var products = JSON.parse(response);
+            var totalPrice = 0;
             var cart_html = "<table class=\"table\">\n" +
                 "        <thead>\n" +
                 "          <tr>\n" +
@@ -20,25 +21,31 @@ function fillOrders(orders) {
                 "        </thead>\n" +
                 "        <tbody id=\"table-body\">\n";
             $.each(products, function (k, product) {
+                totalPrice += parseInt(product.price) * parseInt(product.quantity);
                 cart_html += "<tr id=\"product" + product.id + "\">\n" +
                     " <th>\n" +
-                    "   <img src=\"./resources/images/products/" + product.image + "\" alt=\"product\">\n" +
+                    "   <img src=\"./resources/images/products/" + product.image + "\" alt=\"product\"/>\n" +
                     " </th>\n" +
                     " <th>\n" +
                     "   <h4>" + product.name + "</h4>\n" +
                     " <th>\n" +
-                    "   <h4>" + product.price + "</h4>\n" +
+                    "   <h4>" + product.price + " €</h4>\n" +
                     " </th>\n" +
                     " <th>\n" +
                     " <h4>"+ product.quantity +"</h4>" +
                     " </th>\n" +
                     "</tr>";
             });
+            cart_html += "<tr><th colspan='2'>TOTAL PRICE</th><th colspan='2'>"+ totalPrice +" €</th></tr>";
             cart_html += "</tbody></table>\n";
             cart_html += "<button class=\"btn btn-primary pull-right\">Buy again</button>";
             $('#collapse' + order.id + " .card-body").append(cart_html);
         });
     });
+    var orderid = new URL(window.location.href).searchParams.get("id");
+    if (orderid){
+        $('#collapse' + orderid).addClass("show");
+    }
 }
 
 function getUserOrders() {

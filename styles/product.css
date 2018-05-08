@@ -1,8 +1,14 @@
 .product-card{
     height: 400px;
+    background: #ffffffe6;
 }
 
 .product-img{
     object-fit: contain;
     height: 300px;
+}
+
+.col-md-4{
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

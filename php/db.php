@@ -39,3 +39,8 @@ function utf8ize($d) {
     }
     return $d;
 }
+
+function lastId(){
+    global $db;
+    return $db->insert_id;
+}
