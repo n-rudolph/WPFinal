@@ -19,6 +19,7 @@ function logout() {
         sessionStorage.removeItem("name");
         sessionStorage.removeItem("email");
         checkSession();
+        window.location.href = 'index.html';
     });
   }
 }
