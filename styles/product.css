@@ -6,6 +6,7 @@
 .product-img{
     object-fit: contain;
     height: 300px;
+    cursor: pointer;
 }
 
 .col-md-4{

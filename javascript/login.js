@@ -26,9 +26,9 @@ function performLogin() {
             password: sha256($("#password").val())
         }, function (result) {
             var response = JSON.parse(result);
-            if (response.status !== 200) {
+            if (!response || response.status !== 200) {
                 var error = $('#errorAlert');
-                error.html(response.msg);
+                error.html(response.msg ? response.msg : "An error occurred. Try again later.");
                 error.show();
             } else {
                 sessionStorage.id = response.user.id;
