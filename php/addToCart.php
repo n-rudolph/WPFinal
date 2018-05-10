@@ -1,8 +1,19 @@
 <?php
 include 'db.php';
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if(!$_SESSION['loggedin']){
+  $response['status'] = 500;
+  $response['msg'] = "Server error occurred. Please try again";
+  $response['error'] = "" . getError();
+  echo json_encode($response);
+  exit();
+}
+
 $response = array('status' => 0, 'msg' => "");
-if (isset($_POST["userid"]) && isset($_POST["productid"])) {
+if (isset($_SESSION["id"]) && isset($_POST["productid"])) {
     if (!isConnected()) {
         $response['status'] = 500;
         $response['msg'] = "Server error occurred. Please try again";
@@ -10,7 +21,7 @@ if (isset($_POST["userid"]) && isset($_POST["productid"])) {
         echo json_encode($response);
         exit();
     } else {
-        $userid = $_POST["userid"];
+        $userid = $_SESSION["id"];
         $productid = $_POST["productid"];
 
         $checkAlreadyInCart = query("SELECT count(*) as total from cart where (userid='$userid' and productid = '$productid');");

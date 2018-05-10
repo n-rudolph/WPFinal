@@ -3,25 +3,23 @@ $( document ).ready(function() {
 });
 
 function checkSession() {
-  if (sessionStorage.id){
-    $('.needsLogin').show();
-    $('.doesntNeedLogin').hide();
-  } else {
-    $('.needsLogin').hide();
-    $('.doesntNeedLogin').show();
-  }
+  $.get('php/isLogged.php', {} , function(response) {
+    if (response == 'true') {
+      $('.needsLogin').show();
+      $('.doesntNeedLogin').hide();
+    } else {
+      $('.needsLogin').hide();
+      $('.doesntNeedLogin').show();
+    }
+  });
 }
 
 function logout() {
-  if (sessionStorage.id){
     $.get("php/logout.php", {}, function(daten) {
-        sessionStorage.removeItem("id");
-        sessionStorage.removeItem("name");
-        sessionStorage.removeItem("email");
         checkSession();
-        window.location.href = 'index.html';
+        console.log(window.location.href);
+        //window.location.href = 'index.html';
     });
-  }
 }
 
 setInterval(function() {

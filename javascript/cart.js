@@ -1,9 +1,12 @@
 $(document).ready(function () {
     $("#cart-empty").hide();
-    if (!sessionStorage.id) {
-        window.location.href = 'index.html';
-    }
-    getUserCart();
+    $.get('php/isLogged.php', {}, function(result){
+      if (result == 'false'){
+         window.location.href = "index.html";
+      } else {
+        getUserCart();
+      }
+    });
 });
 
 var productids = [];
@@ -12,10 +15,7 @@ var amounts = [];
 var total = 0;
 
 function getUserCart() {
-    var userid = sessionStorage.id;
-    $.post('php/getCart.php', {
-        id: userid
-    }, function (response) {
+    $.post('php/getCart.php', {}, function (response) {
         products = JSON.parse(response);
         if (products.length == 0) {
             $("#cart-table").hide();
@@ -53,7 +53,6 @@ function getUserCart() {
 
 function remove(id) {
     $.post("php/removeFromCart.php", {
-        userid: sessionStorage.id,
         productid: id
     }, function (response) {
         var resp = JSON.parse(response);
@@ -125,12 +124,9 @@ function confirmCheckout() {
         })
     });
     $.post('php/checkoutCart.php', {
-        id: sessionStorage.id,
-        email: sessionStorage.email,
-        name: sessionStorage.name,
         cart: cart,
         total: total,
-        delivery: $("#deliveryField input[type='radio']:checked").val() == "1" ? "Normal" : "Express",
+        delivery: $("#deliveryField input[type='radio']:checked").val() == "0" ? "Normal" : "Express",
         date: now()
     }, function (response) {
         var resp = JSON.parse(response);

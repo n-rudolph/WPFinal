@@ -1,18 +1,9 @@
 <?php
 
-include 'db.php';
-
-if (!isConnected()) {
-    echo "Db connection error: \n" . getError();
-    exit();
-} else {
-    $answer = query("SELECT * FROM connectedusers WHERE id = 1;");
-    $getRowAssoc = mysqli_fetch_assoc($answer);
-    $amount = $getRowAssoc["amount"];
-
-    $answer->close();
-    closeConnection();
-    echo "200, $amount";
-    exit();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
+
+$amount = count(glob(session_save_path() . '/*'));
+echo "200, $amount";
 ?>

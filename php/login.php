@@ -32,6 +32,15 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                 if (isset($id)) {
                     $result = query("UPDATE connectedusers SET amount = amount + 1 WHERE id = 1");
                     closeConnection();
+
+                    session_start();
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['email'] = $email;
+                    $_SESSION['start'] = time();
+                    $_SESSION['expire'] = time() + (60 * 60);
+                    $_SESSION['id'] = $id;
+                    $_SESSION['name'] = $name;
+
                     $response['status'] = 200;
                     $response['msg'] = "Successful login: $name, $email";
                     $response['user'] = array("id" => $id, "name" => $name, "email" => $email);

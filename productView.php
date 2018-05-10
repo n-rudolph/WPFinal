@@ -73,7 +73,17 @@ if ($id && isConnected()) {
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            if (!sessionStorage.id) {
+          <?php
+          if (session_status() == PHP_SESSION_NONE) {
+              session_start();
+          }
+          $e="false";
+          if($_SESSION['loggedin']) {
+            $e="true";
+          }
+
+           ?>
+            if (!<?php echo $e?>) {
                 var add_btn = $('#add-cart');
                 add_btn.prop("disabled", true);
                 $('[data-toggle="tooltip"]').tooltip({placement: 'bottom', trigger: 'manual'}).tooltip('show');

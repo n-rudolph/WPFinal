@@ -1,16 +1,18 @@
 $(document).ready(function () {
     $("#orders-empty").hide();
-    if (!sessionStorage.id) {
-        window.location.href = 'index.html';
-    }
-    getUserOrders();
+    $.get('php/isLogged.php', {}, function(result){
+      if (result == 'false'){
+         window.location.href = "index.html";
+      } else {
+        getUserOrders();
+      }
+    });
 });
 
 function fillOrders(orders) {
     $.each(orders, function (k, order) {
         $.get('php/getOrderProducts.php?orderid=' + order.id, function (response) {
             var products = JSON.parse(response);
-            var totalPrice = 0;
             var cart_html = "<table class=\"table\">\n" +
                 "        <thead>\n" +
                 "          <tr>\n" +
@@ -21,7 +23,6 @@ function fillOrders(orders) {
                 "        </thead>\n" +
                 "        <tbody id=\"table-body\">\n";
             $.each(products, function (k, product) {
-                totalPrice += parseInt(product.price) * parseInt(product.quantity);
                 cart_html += "<tr id=\"product" + product.id + "\">\n" +
                     " <th>\n" +
                     "   <img src=\"./resources/images/products/" + product.image + "\" alt=\"product\"/>\n" +
@@ -36,9 +37,9 @@ function fillOrders(orders) {
                     " </th>\n" +
                     "</tr>";
             });
-            cart_html += "<tr><th colspan='2'>TOTAL PRICE</th><th colspan='2'>"+ totalPrice +" €</th></tr>";
+            cart_html += "<tr><th colspan='2'>TOTAL PRICE</th><th colspan='2'>"+ order.total +" €</th></tr>";
             cart_html += "</tbody></table>\n";
-            cart_html += "<button class=\"btn btn-primary pull-right\">Buy again</button>";
+            cart_html += "<button class=\"btn btn-primary pull-right\" onclick=\"buyAgain("+order.id+","+order.total+",'"+order.delivery+"')\">Buy again</button>";
             $('#collapse' + order.id + " .card-body").append(cart_html);
         });
     });
@@ -49,10 +50,7 @@ function fillOrders(orders) {
 }
 
 function getUserOrders() {
-    var userid = sessionStorage.id;
-    $.post('php/getOrders.php', {
-        id: userid
-    }, function (response) {
+    $.post('php/getOrders.php', {}, function (response) {
         var result = JSON.parse(response);
         if (result.length === 0) {
             $("#orders-accordion").hide();
@@ -84,11 +82,30 @@ function getUserOrders() {
                     "            </div>\n" +
                     "          </div>\n" +
                     "        </div>";
-                accordion.append(orderHtml);
+                accordion.prepend(orderHtml);
                 accordion.show();
                 $("#orders-empty").hide();
             });
             fillOrders(result);
         }
     });
+}
+
+function buyAgain(orderid, orderTotal, orderDelivery) {
+  $.post('php/buyAgain.php', {
+    orderid: orderid,
+    date: now(),
+    total: orderTotal,
+    delivery: orderDelivery
+  }, function(response) {
+    var result = JSON.parse(response);
+    if (result.status == 200) {
+      $("#orders-accordion").empty();
+      getUserOrders();
+    }
+  });
+
+}
+function now() {
+    return new Date().toISOString().replace("T", " ").substring(0, 19);
 }

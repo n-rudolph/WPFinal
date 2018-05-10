@@ -2,20 +2,17 @@ $(document).ready(function () {
     $('#emailError').hide();
     $('#passwordError').hide();
     $('#errorAlert').hide();
-    if (sessionStorage.id) window.location.href = "index.html";
-
+    $.get('php/isLogged.php', {}, function(result){
+      if (result == 'true'){
+         window.location.href = "index.html";
+      }
+    });
 });
 
 function loginUser() {
     resetErrors();
     if (checkLoginForm()) {
-        if (sessionStorage.id) {
-            $.get("php/logout.php", {}, function (daten) {
-                performLogin();
-            });
-        } else {
-            performLogin();
-        }
+        performLogin();
     }
 }
 
@@ -31,9 +28,6 @@ function performLogin() {
                 error.html(response.msg ? response.msg : "An error occurred. Try again later.");
                 error.show();
             } else {
-                sessionStorage.id = response.user.id;
-                sessionStorage.name = response.user.name;
-                sessionStorage.email = response.user.email;
                 window.location.href = 'index.html';
             }
         });

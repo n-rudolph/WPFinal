@@ -1,7 +1,5 @@
 function addToCart(prodid) {
-    if (sessionStorage.id) {
         $.post("php/addToCart.php", {
-            userid: sessionStorage.id,
             productid: prodid
         }, function (result) {
             var resp = JSON.parse(result);
@@ -20,5 +18,4 @@ function addToCart(prodid) {
                 }, 3000);
             }
         });
-    }
 }

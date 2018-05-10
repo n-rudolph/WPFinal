@@ -1,9 +1,13 @@
 <?php
 include 'db.php';
 
-if (isset($_POST["userid"]) && isset($_POST["productid"])){
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_SESSION["id"]) && isset($_POST["productid"])){
   if (isConnected()) {
-    $userid = $_POST["userid"];
+    $userid = $_SESSION["id"];
     $productid = $_POST["productid"];
     query("delete from cart where (userid = '$userid' and productid = '$productid');");
     $response['status'] = 200;
