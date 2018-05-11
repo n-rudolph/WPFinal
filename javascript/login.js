@@ -25,7 +25,7 @@ function performLogin() {
             var response = JSON.parse(result);
             if (!response || response.status !== 200) {
                 var error = $('#errorAlert');
-                error.html(response.msg ? response.msg : "An error occurred. Try again later.");
+                error.html("The credientials are incorrect. Try again later.");
                 error.show();
             } else {
                 window.location.href = 'index.html';
@@ -45,8 +45,6 @@ function checkLoginForm() {
     }
     if (password == undefined || password.length < 6) {
         errors++;
-        $('#password').addClass('is-invalid');
-        $('#passwordError').show();
     }
     return errors == 0;
 }

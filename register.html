@@ -2,10 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Titulo a prueba</title>
+    <title>Sign Up</title>
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/register.css">
+    <link rel="icon" href="https://cdn1.iconfinder.com/data/icons/education-flat-2/48/59-512.png">
     <script type="text/javascript" src="resources/jquery/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="resources/sha256.js"></script>
@@ -14,17 +15,17 @@
   <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="background"></div>
-    <div class="flex-grow-1">
+    <div class="col-md-3 offset-md-1">
+      <a class="navbar-brand" href="index.html">
+        <img src="https://cdn1.iconfinder.com/data/icons/education-flat-2/48/59-512.png" width="30" height="30" alt="">
+      </a>
       <a class="navbar-brand" href="index.html">Rudygol</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-    <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
-      <button type="button" class="btn btn-primary">
-        Active users <span class="badge badge-light" id=activeUsers></span>
-      </button>
+    <div class="collapse navbar-collapse ml-auto col-md-2 offset-md-4" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item doesntNeedLogin">
           <a href="login.html" class="nav-link">Log In</a>
@@ -39,7 +40,7 @@
           <form onsubmit="registerUser(); return false">
             <fieldset>
               <!-- Form Name -->
-              <legend>Register</legend>
+              <legend>Sign Up</legend>
               <!-- Text input http://getbootstrap.com/css/#forms -->
               <div class="form-group">
                 <label for="firstname" class="control-label">Firstname</label>
@@ -71,7 +72,7 @@
               <!-- Button http://getbootstrap.com/css/#buttons -->
               <div class="form-group">
                 <div class="text-center">
-                  <button type="button" id="register" name="register" class="btn btn-primary" onclick="registerUser()">REGISTER</button>
+                  <button type="button" id="register" name="register" class="btn btn-primary" onclick="registerUser()">SIGN UP</button>
                 </div>
               </div>
             </fieldset>

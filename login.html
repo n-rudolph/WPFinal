@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/register.css">
+    <link rel="icon" href="https://cdn1.iconfinder.com/data/icons/education-flat-2/48/59-512.png">
     <script type="text/javascript" src="resources/jquery/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="resources/sha256.js"></script>
@@ -14,14 +15,17 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="background"></div>
-    <div class="flex-grow-1">
+    <div class="col-md-3 offset-md-1">
+      <a class="navbar-brand" href="index.html">
+        <img src="https://cdn1.iconfinder.com/data/icons/education-flat-2/48/59-512.png" width="30" height="30" alt="">
+      </a>
         <a class="navbar-brand" href="index.html">Rudygol</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-    <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse ml-auto col-md-2 offset-md-4" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item doesntNeedLogin">
                 <a href="register.html" class="nav-link">Sign Up</a>
@@ -37,6 +41,7 @@
             <form>
                 <fieldset>
                     <div class="alert alert-danger fade show" id="errorAlert" role="alert">
+                      The fields are invalid.
                     </div>
                     <!-- Form Name -->
                     <legend>Log In</legend>
@@ -50,7 +55,6 @@
                     <div class="form-group">
                         <label for="password" class="control-label">Password</label>
                         <input type="password" class="form-control" id="password" required="">
-                        <small class="form-text" style="color: red" id="passwordError">This field is invalid</small>
                     </div>
                     <!-- Button http://getbootstrap.com/css/#buttons -->
                     <div class="form-group">

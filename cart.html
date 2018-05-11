@@ -2,10 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
-    <title>Titulo a prueba</title>
+    <title>My Cart</title>
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/cart.css">
+    <link rel="icon" href="https://cdn1.iconfinder.com/data/icons/education-flat-2/48/59-512.png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
           integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
     <script type="text/javascript" src="resources/jquery/jquery-2.1.4.min.js"></script>
@@ -16,14 +17,17 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="background"></div>
-    <div class="flex-grow-1">
-        <a class="navbar-brand" href="index.html">Rudygol</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div class="col-md-3 offset-md-1">
+      <a class="navbar-brand" href="index.html">
+        <img src="https://cdn1.iconfinder.com/data/icons/education-flat-2/48/59-512.png" width="30" height="30" alt="">
+      </a>
+      <a class="navbar-brand" href="index.html">Rudygol</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
-    <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse ml-auto col-md-4 offset-md-3" id="navbarSupportedContent">
         <button type="button" class="btn btn-primary">
             Active users <span class="badge badge-light" id=activeUsers></span>
         </button>
@@ -35,10 +39,7 @@
                 <a href="register.html" class="nav-link">Sign Up</a>
             </li>
             <li class="nav-item needsLogin">
-                <a onclick="logout()" class="nav-link">Log Out</a>
-            </li>
-            <li class="nav-item needsLogin">
-                <a href="cart.html" class="nav-link">Cart</a>
+                <a href="" onclick="logout()" class="nav-link">Log Out</a>
             </li>
             <li class="nav-item needsLogin">
                 <a href="orders.html" class="nav-link">My orders</a>
