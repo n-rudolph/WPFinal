@@ -19,7 +19,10 @@ function isSessionExpired() {
 }
 
 function logout() {
-  query("UPDATE connectedusers SET amount = amount - 1 WHERE id = 1");
+  if (isConnected()) {
+    query("UPDATE connectedusers SET amount = amount - 1 WHERE id = 1");
+    closeConnection();
+  }
   session_unset();
   session_destroy();
 }
