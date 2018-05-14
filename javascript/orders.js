@@ -1,11 +1,11 @@
 $(document).ready(function () {
     $("#orders-empty").hide();
-    $.get('php/isLogged.php', {}, function(result){
-      if (result == 'false'){
-         window.location.href = "index.html";
-      } else {
-        getUserOrders();
-      }
+    $.get('php/isLogged.php', {}, function (result) {
+        if (result == 'false') {
+            window.location.href = "index.html";
+        } else {
+            getUserOrders();
+        }
     });
 });
 
@@ -33,18 +33,21 @@ function fillOrders(orders) {
                     "   <h4>" + product.price + " €</h4>\n" +
                     " </th>\n" +
                     " <th>\n" +
-                    " <h4>"+ product.quantity +"</h4>" +
+                    " <h4>" + product.quantity + "</h4>" +
                     " </th>\n" +
                     "</tr>";
             });
-            cart_html += "<tr><th colspan='2'>TOTAL PRICE</th><th colspan='2'>"+ order.total +" €</th></tr>";
+            if (order.delivery == "Express") {
+                cart_html += "<tr><th></th><th><h4>Express delivery</h4></th><th><h4>5 €</h4></th><th></th></tr>";
+            }
+            cart_html += "<tr><th colspan='2'>TOTAL PRICE</th><th colspan='2'>" + order.total + " €</th></tr>";
             cart_html += "</tbody></table>\n";
-            cart_html += "<button class=\"btn btn-primary pull-right\" onclick=\"buyAgain("+order.id+","+order.total+",'"+order.delivery+"')\">Buy again</button>";
+            cart_html += "<button class=\"btn btn-primary pull-right\" onclick=\"buyAgain(" + order.id + "," + order.total + ",'" + order.delivery + "')\">Buy again</button>";
             $('#collapse' + order.id + " .card-body").append(cart_html);
         });
     });
     var orderid = new URL(window.location.href).searchParams.get("id");
-    if (orderid){
+    if (orderid) {
         $('#collapse' + orderid).addClass("show");
     }
 }
@@ -92,20 +95,21 @@ function getUserOrders() {
 }
 
 function buyAgain(orderid, orderTotal, orderDelivery) {
-  $.post('php/buyAgain.php', {
-    orderid: orderid,
-    date: now(),
-    total: orderTotal,
-    delivery: orderDelivery
-  }, function(response) {
-    var result = JSON.parse(response);
-    if (result.status == 200) {
-      $("#orders-accordion").empty();
-      getUserOrders();
-    }
-  });
+    $.post('php/buyAgain.php', {
+        orderid: orderid,
+        date: now(),
+        total: orderTotal,
+        delivery: orderDelivery
+    }, function (response) {
+        var result = JSON.parse(response);
+        if (result.status == 200) {
+            $("#orders-accordion").empty();
+            getUserOrders();
+        }
+    });
 
 }
+
 function now() {
     return new Date().toISOString().replace("T", " ").substring(0, 19);
 }

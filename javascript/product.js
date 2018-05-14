@@ -19,3 +19,13 @@ function addToCart(prodid) {
             }
         });
 }
+
+$(document).ready(function () {
+    $.get('php/isLogged.php', {}, function (response) {
+        if (response == 'false') {
+            var add_btn = $('#add-cart');
+            add_btn.prop("disabled", true);
+            $('[data-toggle="tooltip"]').tooltip({placement: 'bottom', trigger: 'manual'}).tooltip('show');
+        }
+    });
+});

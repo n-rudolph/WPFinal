@@ -26,9 +26,10 @@ if ($id && isConnected()) {
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="background"></div>
     <div class="col-md-3 offset-md-1">
-      <a class="navbar-brand" href="index.html">
-        <img src="https://cdn1.iconfinder.com/data/icons/education-flat-2/48/59-512.png" width="30" height="30" alt="">
-      </a>
+        <a class="navbar-brand" href="index.html">
+            <img src="https://cdn1.iconfinder.com/data/icons/education-flat-2/48/59-512.png" width="30" height="30"
+                 alt="">
+        </a>
         <a class="navbar-brand" href="index.html">Rudygol</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,25 +75,6 @@ if ($id && isConnected()) {
             </button>
         </div>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-          <?php
-          if (session_status() == PHP_SESSION_NONE) {
-              session_start();
-          }
-          $e="false";
-          if($_SESSION['loggedin']) {
-            $e="true";
-          }
-
-           ?>
-            if (!<?php echo $e?>) {
-                var add_btn = $('#add-cart');
-                add_btn.prop("disabled", true);
-                $('[data-toggle="tooltip"]').tooltip({placement: 'bottom', trigger: 'manual'}).tooltip('show');
-            }
-        });
-    </script>
 
 </div>
 
