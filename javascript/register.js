@@ -8,6 +8,8 @@ $(document).ready(function () {
 
 function registerUser() {
     resetErrors();
+    $("#registerLabel").toggleClass("hideLoader");
+    $("#registerLoader").toggleClass("hideLoader");
     if (checkRegistrationForm()) {
         $.post("php/register.php",
             {
@@ -16,6 +18,8 @@ function registerUser() {
                 email: $("#email").val(),
                 password: sha256($("#password").val())
             }, function (result) {
+              $("#registerLabel").toggleClass("hideLoader");
+              $("#registerLoader").toggleClass("hideLoader");
                 var response = JSON.parse(result);
                 if (response.status !== 200) {
                     var error = $('#responseError');
@@ -25,6 +29,9 @@ function registerUser() {
                     window.location.href = 'login.html';
                 }
             });
+    } else {
+      $("#registerLabel").toggleClass("hideLoader");
+      $("#registerLoader").toggleClass("hideLoader");
     }
 }
 

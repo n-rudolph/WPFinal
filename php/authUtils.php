@@ -6,7 +6,11 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 function isLoggedin() {
-  return $_SESSION['loggedin'];
+  if (array_key_exists('loggedin', $_SESSION)) {
+      return $_SESSION['loggedin'];
+  }else {
+    return false;
+  }
 }
 
 function isSessionExpired() {

@@ -24,7 +24,7 @@ function sendEmail($cart){
         $message .= "<h4>" . $prod["product"]["name"] . "</h4>";
         $message .= " </th>";
         $message .= " <th>";
-        $message .= " <p>" . $prod["product"]["price"] . " €</p>";
+        $message .= " <p>" . $prod["product"]["price"] . " EUR</p>";
         $message .= " </th>";
         $message .= " <th>" . $prod["quantity"] . "";
         $message .= " </th>";
@@ -32,8 +32,8 @@ function sendEmail($cart){
     }
     $message .= "</tbody>";
     $message .= "</table>";
-    $message.= "<h4>Total = " . $_POST["total"] . "</h4>";
-    $message.= "<h4>Delivery = " . $_POST["delivery"] . "</h4>";
+    $message.= "<h4>Delivery = " . $_POST["delivery"] . ($_POST["delivery"] ==  "Express" ? " +5 EUR" : "") . "</h4>";
+    $message.= "<h4>Total = " . $_POST["total"] . " EUR</h4>";
 
     return orderMail($_SESSION["email"], $message);
 }
@@ -54,7 +54,6 @@ if (isset($_SESSION["id"]) && isset($_POST["cart"]) && isset($_POST["date"])) {
         $total = $_POST["total"];
 
         $q = query("INSERT INTO user_order (id, userid, date, total, delivery) VALUE (null,'$userid', '$date', '$total', '$delivery');");
-        $q = true;
         if ($q != false) {
             $lastId = lastId();
             foreach ($cart as &$product) {

@@ -1,3 +1,4 @@
+var passwordError = false;
 $(document).ready(function () {
     $('#emailError').hide();
     $('#passwordError').hide();
@@ -11,8 +12,18 @@ $(document).ready(function () {
 
 function loginUser() {
     resetErrors();
+    $("#loginLabel").toggleClass("hideLoader");
+    $("#loginLoader").toggleClass("hideLoader");
     if (checkLoginForm()) {
         performLogin();
+    } else {
+      if (passwordError) {
+        var error = $('#errorAlert');
+        error.html("The credientials are incorrect. Try again later.");
+        error.show();
+      }
+      $("#loginLabel").toggleClass("hideLoader");
+      $("#loginLoader").toggleClass("hideLoader");
     }
 }
 
@@ -22,6 +33,8 @@ function performLogin() {
             email: $("#email").val(),
             password: sha256($("#password").val())
         }, function (result) {
+          $("#loginLabel").toggleClass("hideLoader");
+          $("#loginLoader").toggleClass("hideLoader");
             var response = JSON.parse(result);
             if (!response || response.status !== 200) {
                 var error = $('#errorAlert');
@@ -45,6 +58,7 @@ function checkLoginForm() {
     }
     if (password == undefined || password.length < 6) {
         errors++;
+        passwordError = true;
     }
     return errors == 0;
 }
