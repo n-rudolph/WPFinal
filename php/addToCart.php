@@ -27,7 +27,7 @@ if (isset($_SESSION["id"]) && isset($_POST["productid"])) {
         $checkAlreadyInCart = query("SELECT count(*) as total from cart where (userid='$userid' and productid = '$productid');");
         if (($checkAlreadyInCart->fetch_object())->total != 0) {
             $response['status'] = 400;
-            $response['msg'] = "Object already in cart";
+            $response['msg'] = "Product already in cart";
             $response['error'] = "Product already in user cart.";
             echo json_encode($response);
             exit();
