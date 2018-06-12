@@ -52,6 +52,15 @@ function fillOrders(orders) {
     }
 }
 
+function getOrderDate(dateString) {
+  var split = dateString.split(" ");
+  var timeSplit = split[1].split(":");
+  var hours = parseInt(timeSplit[0]);
+  hours = hours + 2;
+  var hourString = "" + (hours<10 ? "0" + hours : ""+hours);
+  return split[0] +  " " + hourString + ":" +timeSplit[1];
+}
+
 function getUserOrders() {
     $.post('php/getOrders.php', {}, function (response) {
         var result = JSON.parse(response);
@@ -71,11 +80,12 @@ function getUserOrders() {
 
             var accordion = $("#orders-accordion");
             $.each(result, function (k, order) {
+              console.log(order);
                 var orderHtml = "<div class=\"card\">\n" +
                     "          <div class=\"card-header\" id=\"heading-" + order.id + "\">\n" +
                     "            <h5 class=\"mb-0\">\n" +
                     "              <button class=\"btn btn-link\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapse" + order.id + "\" aria-expanded=\"true\" aria-controls=\"collapse" + order.id + "\">\n" +
-                    "                " + order.date + "\n" +
+                    "                " + getOrderDate(order.date) + "\n" +
                     "              </button>\n" +
                     "            </h5>\n" +
                     "          </div>\n" +
