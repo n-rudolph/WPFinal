@@ -58,7 +58,7 @@ function remove(id) {
         var resp = JSON.parse(response);
         if (resp.status == 200) {
             $("#product" + id).remove();
-            var index = productids.indexOf(id);
+            var index = productids.indexOf("" + id);
             productids.splice(index, 1);
             products.splice(index, 1);
             if (productids.length == 0) {
